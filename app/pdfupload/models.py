@@ -55,7 +55,7 @@ class Grops(models.Model):
     fan_kredit =models.CharField(max_length=25, blank=True,  help_text="F.I.SH")
     
     def __str__(self) -> str:
-        return self.name
+        return self.fan_nomi
     
     def save(self, *args, **kwargs):
         self.fan_kredit = str(int(self.fan_soat)/30)
