@@ -4,3 +4,4 @@ from django.apps import AppConfig
 class PdfuploadConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'pdfupload'
+    verbose_name = "Talabalar"

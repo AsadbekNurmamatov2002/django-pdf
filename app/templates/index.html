@@ -1,50 +1,87 @@
 {% include "_base.html" %}
-{% block title %}
-pdf 
-{% endblock title %}
-
+{% load static %}
 {% block content %}
+<style type="text/css">
+
+body{
+  padding:0px;
+  margin:0px;
+  width: 100%;
+  height: 100%;
+  display:  flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.contaner{
+  max-width: 1270px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+}
+.text-center-bar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap:0px;
+  padding: 1px;
+}
+.contaner .text-bir{
+  padding:0px;
+  margin:0px;
+  font-size: 18px;
+  text-align: center;
+}
+
+</style>
      <div class="contaner">
-    <h3>O'ZBEKISTON RESPUBLIKASI OLIY TA'LIM, FAN VA INNOVATSIYALAR VAZIRLIGI</h3>
-    <p>O'zbekiston-Finlandiya pedagogika instituti<p>
-    <h3>BAHOLASH QAYDNOMASI N%__________</h3>
-    <p>Fakultet nome: </p>
-    <p>Ta'im yo'nalishi (mutaxassislik) nome: __________</p>
+      <div class="text-center-bar">
+    <p class='text-bir'>O'ZBEKISTON RESPUBLIKASI OLIY TA'LIM, FAN VA INNOVATSIYALAR VAZIRLIGI</p>
+    <p class='text-bir'>O'zbekiston-Finlandiya pedagogika instituti</p>
+    <p class='text-bir'>BAHOLASH QAYDNOMASI N%__________</p>
+      </div>
+    <p style=" padding:0px; margin:0px; font-size: 15px;">Fakultet nome:<b> {{grops.yunalish.fakultet.name}}</b></p>
+    <p style=" padding:0px; margin:0px; font-size: 15px;">Ta'im yo'nalishi (mutaxassislik) nome:<b> {{grops.yunalish}}</b></p>
 
-    <p> O'qov yili: <input type="date"/> o'qov yili ______ semester  __________- guruh</p>
-    <p> Fan nome : ______<p>
-    <p>Fan o'qitovchilari: ______</p>
-    <p> Semestrda danga ajratilgan umumiy soadtlar/kredit: ______</p>
-    <p> Oraliq nazorat/qayta topshirish o'tkazilgan sana: ______<p>
+    <p style=" padding:0px; margin:0px; font-size: 15px;"> O'qov yili:<b> {{grops.uqov_yil}} </b>o'qov yili<b> {{grops.smester}}</b> semester  {{ grops.name}}</b> - guruh</p>
+    {% for f in talababoholash|slice:":1"%}
+    <p style=" padding:0px; margin:0px; font-size: 15px;"> Fan nome :<b> {{f.fan.fan_nome }}</b></p>
+    <p style=" padding:0px; margin:0px; font-size: 15px;">Fan o'qitovchilari: <b>{{f.fan.teacher}}</b></p>
+   
+    <p style=" padding:0px; margin:0px; font-size: 15px;"> Semestrda danga ajratilgan umumiy soadtlar/kredit: <b>{{f.fan.fan_soat}} /{{f.fan.fan_kredit}}</b></p>
+    <p style=" padding:0px; margin:0px; font-size: 15px;"> Oraliq nazorat/qayta topshirish o'tkazilgan sana: sana <b>5515424</b></p>
+    <div style=" width:100%;">
+       {% endfor %}
+      <table class="table" style="border:1px solid black; width:100%">
+          <tr style="height:30px">
+            <th style="width:5%" scope="col">N%</th>
+            <th style="width:40%" scope="col">Talaba familiyasi, ismi, otasining ismi</th>
+            <th style="width:13%">Talaba ID raqami</th>
+            <th style="width:25%" scope="col">To'plangan ball Maksimal ball - 50 Minimal ball - 30</th>
+            <th style="width:17%; text-align: center;" scope="col">Talabaning bahosi</th>
+          </tr>
+          {% for talabab in talababoholash %}
+          <tr style="height:18px">
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ talabab.talaba.ism }} {{ talabab.talaba.familya }} {{ talabab.talaba.ota }}</td>
+            <td>{{talabab.talaba.talaba_id}}</td>
+            <td>{{talabab.ball}}</td>
+            <td>{{talabab.bahosi}}</td>
+          </tr>
+          {% endfor %}
+      </table>
+      </div>
+      <div>
+        <p style=" padding:0px; margin:7px 0px 0px 0px; font-size: 15px;">Jami talaba: {{grops.talababaholash_set.all.count}}, shundan, 5:___ , 4:____ , 3:____ , 2:_____, Kelmadi:____</p>
+        
+        <p style=" padding:0px; margin:0px; font-size: 15px;">Fakultet dekan {{grops.yunalish.fakultet.dekan }}</p> 
+        {% for tk in talababoholash|slice:":1" %}
+        <p style=" padding:0px; margin:0px; font-size: 15px;" >Kafedra mudiri  {{tk.kafidra_m.ism}}</p><p>{{ tk.or_nazorat_masul}}</p>
+        
+        <p style=" padding:0px; margin:0px; font-size: 15px;"> Ro'yxatga olindi: N%______  Sana: ____________</p>
+        <p style=" padding:0px; margin:0px; font-size: 15px;"> O'qov-uslubiy boshqarma boshlig'i {{tk.uquv_boshqarma_boshligi}}</p>
+        {% endfor %}
     </div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-        </table>
-
 {% endblock content %}
