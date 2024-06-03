@@ -1,23 +1,15 @@
 from django.contrib import admin
-from .models import Talaba, Teachers, KafidraMudir, Talababaholash, Fakultet, Fan, Yunalish, Grops
+from .models import Grops, Talaba, Talababaholash
 
-# Register your models here.
+# # Register your models here.
 
 admin.site.register(Talaba)
-admin.site.register(KafidraMudir)
-admin.site.register(Teachers)
-admin.site.register(Fakultet)
 admin.site.register(Talababaholash)
-# @admin.register(Talababaholash)
 class TalabaInline(admin.TabularInline):
     model =Talababaholash
     raw_id_fields = ["grups"]
 
 @admin.register(Grops)
 class GropsAdmin(admin.ModelAdmin):
-    list_display=['name']
+    list_display=['fan_nomi']
     inlines = [TalabaInline]
-admin.site.register(Fan)
-admin.site.register(Yunalish)
-
-# date_hierarchy = 'added_on'
