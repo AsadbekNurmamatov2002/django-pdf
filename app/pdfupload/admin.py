@@ -7,9 +7,11 @@ admin.site.register(Talaba)
 admin.site.register(Talababaholash)
 class TalabaInline(admin.TabularInline):
     model =Talababaholash
-    raw_id_fields = ["grups"]
+    readonly_fields=['bahosi']
+    raw_id_fields = ["gruh"]
 
 @admin.register(Grops)
 class GropsAdmin(admin.ModelAdmin):
     list_display=['fan_nomi']
+    readonly_fields=['fan_kredit']
     inlines = [TalabaInline]

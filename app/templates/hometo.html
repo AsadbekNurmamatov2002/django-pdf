@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+
+{% block content %}
+
+{% for gr in grops %}
+<a href="{% url "pdfupload:detail" gr.id %}">
+    {{gr.uquv_yil}}
+    {{gr.gruh_nomi}}
+
+</a>
+{% endfor %}
+{% endblock content %}
+

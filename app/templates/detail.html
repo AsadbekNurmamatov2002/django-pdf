@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+ditail
+
+{% for f in talababaholash %}
+<a href="{% url "pdfupload:pdf" f.id %}"> Download</a>
+{{f}}
+{% endfor %}
+
+{% endblock content %}
+
+
